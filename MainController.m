@@ -65,6 +65,11 @@ static BOOL IsReadonlyMode () {
 	}
 }
 
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+	return YES;
+}
+
 - (NSURL *)accountsFileURL
 {
 	static NSString *const kMailAccountsFile = @"Mail/V2/MailData/Accounts.plist";
