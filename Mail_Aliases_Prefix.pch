@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Mail Aliases' target in the 'Mail Aliases' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
