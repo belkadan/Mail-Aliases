@@ -36,6 +36,7 @@
 		8C33E42D12E52F2900832F4E /* NSDictionary+Replacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Replacement.h"; sourceTree = "<group>"; };
 		8C33E42E12E52F2900832F4E /* NSDictionary+Replacement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Replacement.m"; sourceTree = "<group>"; };
 		8C44352612F6292600B9A1F3 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8C5BDDF71533FE2E008F31C8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Mail_Aliases-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Mail_Aliases-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Mail Aliases.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mail Aliases.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -96,6 +97,7 @@
 		29B97314FDCFA39411CA2CEA /* Mail Aliases */ = {
 			isa = PBXGroup;
 			children = (
+				8C5BDDF71533FE2E008F31C8 /* README.md */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
