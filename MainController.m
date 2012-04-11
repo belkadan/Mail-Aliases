@@ -1,5 +1,6 @@
 #import "MainController.h"
 #import "NSDictionary+Replacement.h"
+#import "NSMutableArray+Reordering.h"
 
 #if defined(__has_feature) && __has_feature(objc_arc)
 #define OPAQUE_PTR(x) ((__bridge void *)(x))
@@ -10,6 +11,7 @@
 static NSString * const kMailIdentifier = @"com.apple.mail";
 static NSString * const kMailAccountsKey = @"MailAccounts";
 static NSString * const kAccountUniqueIDKey = @"uniqueId";
+static NSString * const kPrivateDragType = @"com.belkadan.MailAliases:Row";
 
 static NSString * const kDebugReadonlyModeKey = @"READONLY";
 
@@ -26,6 +28,7 @@ static NSString * const kDebugReadonlyModeKey = @"READONLY";
 - (void)selectAccount:(NSString *)accountID;
 - (void)insertAliases:(NSArray *)aliases atIndexes:(NSIndexSet *)indexes;
 - (void)removeAliasesAtIndexes:(NSIndexSet *)indexes;
+- (void)moveAliasesAtIndexes:(NSIndexSet *)srcIndexes toIndexes:(NSIndexSet *)dstIndexes;
 @end
 
 
@@ -58,6 +61,7 @@ static BOOL IsReadonlyMode () {
 	
 	[aliasesTable setTarget:self];
 	[aliasesTable setDoubleAction:@selector(addOrEdit:)];
+	[aliasesTable registerForDraggedTypes:[NSArray arrayWithObject:kPrivateDragType]];
 	
 	if ([mailAccounts count] > 0) 
 	{
@@ -298,6 +302,21 @@ static BOOL IsReadonlyMode () {
 	[aliasesTable reloadData];
 }
 
+- (void)moveAliasesAtIndexes:(NSIndexSet *)srcIndexes toIndexes:(NSIndexSet *)dstIndexes
+{
+	NSUndoManager *undoManager = [aliasesTable undoManager];
+	[[undoManager prepareWithInvocationTarget:self] moveAliasesAtIndexes:dstIndexes toIndexes:srcIndexes];
+	[[undoManager prepareWithInvocationTarget:self] selectAccount:self.selectedAccountID];
+
+	[selectedAccountAliases moveObjectsAtIndexes:srcIndexes toIndexes:dstIndexes];
+	[self save];
+	
+	NSMutableIndexSet *rowIndexes = [dstIndexes mutableCopy];
+	[rowIndexes shiftIndexesStartingAtIndex:0 by:[selectedAccountEmails count]];
+	[aliasesTable reloadData];
+	[aliasesTable selectRowIndexes:rowIndexes byExtendingSelection:NO];
+}
+
 - (void)updateAlias:(NSDictionary *)alias atIndex:(NSInteger)index
 {
 	NSUndoManager *undoManager = [aliasesTable undoManager];
@@ -431,6 +450,38 @@ static BOOL IsReadonlyMode () {
 - (void)performDeleteInTableView:(NSTableView *)tableView
 {
 	[self removeSelected:nil];
+}
+
+#pragma mark -
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
+{
+	if ([rowIndexes firstIndex] < [selectedAccountEmails count]) return NO;
+
+	[pboard setData:[NSKeyedArchiver archivedDataWithRootObject:rowIndexes] forType:kPrivateDragType];
+	return YES;
+}
+
+- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id<NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation
+{
+	row = MAX(row, [selectedAccountEmails count]);
+	[tableView setDropRow:row dropOperation:NSTableViewDropAbove];
+	return NSDragOperationMove;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id<NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation
+{
+	NSInteger offset = [selectedAccountEmails count];
+	NSMutableIndexSet *indexes = [[NSKeyedUnarchiver unarchiveObjectWithData:[[info draggingPasteboard] dataForType:kPrivateDragType]] mutableCopy];
+
+	NSUInteger firstDestIndex = row - offset - [indexes countOfIndexesInRange:NSMakeRange(0, row)];
+	[indexes shiftIndexesStartingAtIndex:0 by:-offset];
+
+	NSIndexSet *destIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(firstDestIndex, [indexes count])];
+	if (![destIndexes isEqual:indexes]) {
+		[self moveAliasesAtIndexes:indexes toIndexes:destIndexes];
+	}
+	return YES;
 }
 
 #pragma mark -
