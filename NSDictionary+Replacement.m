@@ -15,7 +15,7 @@
 	NSMutableDictionary *result = [self mutableCopy];
 	if (value == nil)
 	{
-		[result removeObjectForKey:value];
+		[result removeObjectForKey:key];
 	}
 	else
 	{

@@ -16,6 +16,8 @@
 		8C2BABE01534F4A6009A358B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C2BABDE1534F4A6009A358B /* InfoPlist.strings */; };
 		8C2BABE31534F4A6009A358B /* ArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BABE21534F4A6009A358B /* ArrayTests.m */; };
 		8C2BABE81534FE81009A358B /* NSMutableArray+Reordering.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BABCF1534EF4D009A358B /* NSMutableArray+Reordering.m */; };
+		8C2BABED15352185009A358B /* DictionaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2BABEC15352185009A358B /* DictionaryTests.m */; };
+		8C2BABEE153522C5009A358B /* NSDictionary+Replacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E42E12E52F2900832F4E /* NSDictionary+Replacement.m */; };
 		8C2FA2C1139C518C005321D5 /* NSWindow+EndEditingGracefully.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FA2C0139C518C005321D5 /* NSWindow+EndEditingGracefully.m */; };
 		8C33E42F12E52F2900832F4E /* NSDictionary+Replacement.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C33E42E12E52F2900832F4E /* NSDictionary+Replacement.m */; };
 		8C44352712F6292600B9A1F3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8C44352512F6292600B9A1F3 /* Localizable.strings */; };
@@ -46,6 +48,7 @@
 		8C2BABDF1534F4A6009A358B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8C2BABE21534F4A6009A358B /* ArrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayTests.m; sourceTree = "<group>"; };
 		8C2BABE41534F4A6009A358B /* MailAliasesTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MailAliasesTests-Prefix.pch"; sourceTree = "<group>"; };
+		8C2BABEC15352185009A358B /* DictionaryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionaryTests.m; sourceTree = "<group>"; };
 		8C2FA2BF139C518C005321D5 /* NSWindow+EndEditingGracefully.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSWindow+EndEditingGracefully.h"; path = "../Dockyard/Menu Extra/Classes/NSWindow+EndEditingGracefully.h"; sourceTree = SOURCE_ROOT; };
 		8C2FA2C0139C518C005321D5 /* NSWindow+EndEditingGracefully.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSWindow+EndEditingGracefully.m"; path = "../Dockyard/Menu Extra/Classes/NSWindow+EndEditingGracefully.m"; sourceTree = SOURCE_ROOT; };
 		8C33E42D12E52F2900832F4E /* NSDictionary+Replacement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Replacement.h"; sourceTree = "<group>"; };
@@ -170,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				8C2BABE21534F4A6009A358B /* ArrayTests.m */,
+				8C2BABEC15352185009A358B /* DictionaryTests.m */,
 				8C2BABDC1534F4A6009A358B /* Supporting Files */,
 			);
 			name = Tests;
@@ -298,6 +302,8 @@
 			files = (
 				8C2BABE31534F4A6009A358B /* ArrayTests.m in Sources */,
 				8C2BABE81534FE81009A358B /* NSMutableArray+Reordering.m in Sources */,
+				8C2BABED15352185009A358B /* DictionaryTests.m in Sources */,
+				8C2BABEE153522C5009A358B /* NSDictionary+Replacement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,6 +470,7 @@
 				8C2BABE71534F4A6009A358B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "Mail Aliases" */ = {
 			isa = XCConfigurationList;
